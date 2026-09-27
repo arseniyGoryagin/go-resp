@@ -22,7 +22,7 @@ if err != nil {
 	log.Fatal(err)
 }
 
-if v.Typ == resp.STRING {
+if v.Typ == resp.StringType {
 	fmt.Println(*v.StrValue) // OK
 }
 ```
@@ -34,9 +34,9 @@ w := resp.NewWriter(conn)
 
 get, key := "GET", "mykey"
 cmd := []resp.Value{
-	{Typ: resp.BULK, StrValue: &get},
-	{Typ: resp.BULK, StrValue: &key},
+	{Typ: resp.BulkType, StrValue: &get},
+	{Typ: resp.BulkType, StrValue: &key},
 }
 
-err := w.Write(resp.Value{Typ: resp.ARRAY, ArrValues: &cmd}) // *2\r\n$3\r\nGET\r\n$5\r\nmykey\r\n
+err := w.Write(resp.Value{Typ: resp.ArrayType, ArrValues: &cmd}) // *2\r\n$3\r\nGET\r\n$5\r\nmykey\r\n
 ```
